@@ -74,9 +74,9 @@ $kategori = $kategoriModel->findAll();
                   <?php if (!empty($h['gambar'])): ?>
                     <img src="/zoopedia/public/images/hewan/<?= htmlspecialchars($h['gambar']) ?>"
                          alt="<?= htmlspecialchars($h['nama']) ?>"
-                         class="img-hewan-tabel" /> <!-- ← hapus inline style -->
+                         class="img-hewan-tabel" /> 
                   <?php else: ?>
-                    <span class="text-muted text-sm">—</span> <!-- ← hapus inline style -->
+                    <span class="text-muted text-sm">—</span> 
                   <?php endif; ?>
                 </td>
                 <td class="font-weight-bold"><?= htmlspecialchars($h['nama']) ?></td>
@@ -106,7 +106,7 @@ $kategori = $kategoriModel->findAll();
     </div>
   </div>
 
-  <!-- Modal Tambah -->
+
   <div class="modal-overlay" id="modalTambah">
     <div class="modal-box">
       <h3>Tambah Hewan</h3>
@@ -141,7 +141,7 @@ $kategori = $kategoriModel->findAll();
     </div>
   </div>
 
-  <!-- Modal Edit -->
+
   <div class="modal-overlay" id="modalEdit">
     <div class="modal-box">
       <h3>Edit Hewan</h3>
@@ -166,7 +166,7 @@ $kategori = $kategoriModel->findAll();
           <textarea name="info" id="edit-info"></textarea>
         </div>
         <div class="form-group">
-          <label>Gambar Hewan <span class="text-muted text-xs">(kosongkan jika tidak ingin mengubah)</span></label> <!-- ← hapus inline style -->
+          <label>Gambar Hewan <span class="text-muted text-xs">(kosongkan jika tidak ingin mengubah)</span></label> 
           <div id="edit-preview-wrapper" class="edit-preview-wrapper"> 
             <img id="edit-gambar-preview"
                  src=""
