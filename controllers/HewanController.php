@@ -54,12 +54,12 @@ if ($action === 'update') {
 }
 
 if ($action === 'delete') {
-    $hewan = $hewanModel->findById($_POST['id']); // ← ambil data dulu
+    $hewan = $hewanModel->findById($_POST['id']); 
 
     if (!empty($hewan['gambar'])) {
         $filePath = __DIR__ . '/../public/images/hewan/' . $hewan['gambar'];
         if (file_exists($filePath)) {
-            unlink($filePath); // ← hapus file gambar dari folder
+            unlink($filePath); 
         }
     }
 
