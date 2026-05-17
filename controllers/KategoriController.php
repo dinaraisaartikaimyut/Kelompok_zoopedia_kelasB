@@ -34,7 +34,7 @@ if ($action === 'update') {
 
     if (!empty($_FILES['gambar']['name'])) {
         $ext        = pathinfo($_FILES['gambar']['name'], PATHINFO_EXTENSION);
-        $gambarBaru = strtolower(str_replace(' ', '-', $nama)) . '.' . $ext; // ← fix: hapus "L" typo
+        $gambarBaru = strtolower(str_replace(' ', '-', $nama)) . '.' . $ext; 
 
         if (!empty($_POST['gambar_lama']) && $_POST['gambar_lama'] !== $gambarBaru) {
             $fileLama = __DIR__ . '/../public/images/kategori/' . $_POST['gambar_lama'];
@@ -52,12 +52,12 @@ if ($action === 'update') {
 }
 
 if ($action === 'delete') {
-    $kategori = $kategoriModel->findById($_POST['id']); // ← tambahan: ambil data dulu
+    $kategori = $kategoriModel->findById($_POST['id']); 
 
     if (!empty($kategori['gambar'])) {
         $filePath = __DIR__ . '/../public/images/kategori/' . $kategori['gambar'];
         if (file_exists($filePath)) {
-            unlink($filePath); // ← tambahan: hapus file gambar dari folder
+            unlink($filePath); 
         }
     }
 
