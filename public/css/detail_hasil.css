@@ -1,0 +1,309 @@
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent);
+  font-size: 13px;
+  margin-bottom: 28px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: var(--accent2);
+}
+
+.info-box {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.info-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-label {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.info-value.highlight {
+  color: var(--accent);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 18px;
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 16px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.rekap-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.rekap-item {
+  display: flex;
+  gap: 16px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  transition: all 0.2s ease;
+}
+
+.rekap-item:hover {
+  border-color: var(--accent);
+  box-shadow: 0 2px 12px rgba(14, 165, 233, 0.1);
+}
+
+.rekap-nomor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--accent);
+  color: white;
+  border-radius: var(--radius);
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.rekap-item.rekap-benar .rekap-nomor {
+  background: var(--accent2);
+}
+
+.rekap-item.rekap-salah .rekap-nomor {
+  background: var(--danger);
+}
+
+.rekap-isi {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rekap-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 4px 12px;
+  background: rgba(14, 165, 233, 0.1);
+  color: var(--accent);
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rekap-item.rekap-benar .rekap-badge {
+  background: rgba(6, 214, 160, 0.1);
+  color: var(--accent2);
+}
+
+.rekap-item.rekap-salah .rekap-badge {
+  background: rgba(244, 63, 94, 0.1);
+  color: var(--danger);
+}
+
+.rekap-soal {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.rekap-keterangan {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.rekap-keterangan strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.rekap-item.rekap-benar .rekap-keterangan {
+  color: var(--muted);
+}
+
+.rekap-item.rekap-salah .rekap-keterangan {
+  color: var(--muted);
+}
+
+.rekap-penjelasan {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .info-box {
+    padding: 18px;
+    margin-bottom: 24px;
+  }
+
+  .info-row {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+  }
+
+  .info-label {
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+
+  .info-value {
+    font-size: 14px;
+  }
+
+  .info-value.highlight {
+    font-size: 16px;
+  }
+
+  .rekap-item {
+    gap: 12px;
+    padding: 14px;
+    flex-direction: column;
+  }
+
+  .rekap-nomor {
+    width: 36px;
+    height: 36px;
+    font-size: 12px;
+    align-self: flex-start;
+  }
+
+  .rekap-soal {
+    font-size: 13px;
+  }
+
+  .rekap-keterangan {
+    font-size: 11px;
+  }
+
+  .rekap-penjelasan {
+    font-size: 12px;
+  }
+
+  .section-title {
+    font-size: 15px;
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .info-box {
+    padding: 14px;
+    margin-bottom: 20px;
+  }
+
+  .info-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .info-label {
+    font-size: 10px;
+    margin-bottom: 3px;
+  }
+
+  .info-value {
+    font-size: 13px;
+  }
+
+  .info-value.highlight {
+    font-size: 15px;
+  }
+
+  .rekap-list {
+    gap: 10px;
+  }
+
+  .rekap-item {
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .rekap-nomor {
+    width: 32px;
+    height: 32px;
+    font-size: 11px;
+  }
+
+  .rekap-soal {
+    font-size: 12px;
+  }
+
+  .rekap-keterangan {
+    font-size: 10px;
+  }
+
+  .rekap-penjelasan {
+    font-size: 11px;
+    margin-top: 6px;
+    padding-top: 6px;
+  }
+
+  .back-link {
+    font-size: 12px;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-size: 14px;
+  }
+}
