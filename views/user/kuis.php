@@ -1,6 +1,19 @@
 <?php
 session_start();
- 
+$timeout = 30; 
+
+if (isset($_SESSION['LAST_ACTIVITY'])) {
+    if (time() - $_SESSION['LAST_ACTIVITY'] > $timeout) {
+        session_unset();
+        session_destroy();
+
+        header("Location: /zoopedia/views/user/login.php?pesan=timeout");
+        exit;
+    }
+}
+
+$_SESSION['LAST_ACTIVITY'] = time(); 
+
 require_once __DIR__ . '/../../config/koneksi.php';
 require_once __DIR__ . '/../../models/Soal.php';
  
@@ -190,8 +203,7 @@ function tampilSoal() {
   document.getElementById('soal-num').textContent = (currentSoal + 1) + ' / ' + soalKuis.length;
   document.getElementById('btn-mitos').disabled = false;
   document.getElementById('btn-fakta').disabled = false;
- 
-  // Reset teks tombol lanjut
+
   document.getElementById('btn-lanjut').textContent = 'Soal berikutnya →';
  
   sudahJawab = false;
@@ -227,8 +239,7 @@ function jawab(pilihan) {
     ? 'Benar! Itu ' + s.jawaban.toUpperCase()
     : 'Salah! Jawaban benar: ' + s.jawaban.toUpperCase();
   document.getElementById('sb-penjelasan').textContent = s.penjelasan;
- 
-  // Ganti teks tombol jika soal terakhir
+
   if (currentSoal === soalKuis.length - 1) {
     document.getElementById('btn-lanjut').textContent = 'Lihat Hasil →';
   }
