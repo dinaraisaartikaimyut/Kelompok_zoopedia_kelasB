@@ -1,5 +1,18 @@
 <?php
 session_start();
+$timeout = 30; 
+
+if (isset($_SESSION['LAST_ACTIVITY'])) {
+    if (time() - $_SESSION['LAST_ACTIVITY'] > $timeout) {
+        session_unset();
+        session_destroy();
+
+        header("Location: /zoopedia/views/user/login.php?pesan=timeout");
+        exit;
+    }
+}
+
+$_SESSION['LAST_ACTIVITY'] = time();
 require_once __DIR__ . '/../../config/koneksi.php';
 require_once __DIR__ . '/../../models/Soal.php';
  
@@ -98,8 +111,7 @@ $soal = $soalModel->findAll();
       </table>
     </div>
   </div>
- 
-  <!-- Modal Tambah -->
+
   <div class="modal-overlay" id="modalTambah">
     <div class="modal-box">
       <h3>Tambah Soal</h3>
@@ -119,11 +131,11 @@ $soal = $soalModel->findAll();
         </div>
         <div class="form-group">
           <label>Penjelasan</label>
-          <textarea name="penjelasan" placeholder="Jelaskan kenapa jawaban tersebut benar..."></textarea>
+          <textarea name="penjelasan" placeholder="Jelaskan kenapa jawaban tersebut benar..." required></textarea>
         </div>
         <div class="form-group">
-          <label>Gambar Soal <span class="text-muted" style="font-size:11px;">(opsional)</span></label>
-          <input type="file" name="gambar" accept="image/*" />
+          <label>Gambar Soal</label>
+          <input type="file" name="gambar" accept="image/*" required />
         </div>
         <div class="modal-btns">
           <button type="button" onclick="document.getElementById('modalTambah').classList.remove('show')" class="btn btn-outline">Batal</button>
@@ -132,8 +144,7 @@ $soal = $soalModel->findAll();
       </form>
     </div>
   </div>
- 
-  <!-- Modal Edit -->
+
   <div class="modal-overlay" id="modalEdit">
     <div class="modal-box">
       <h3>Edit Soal</h3>
@@ -155,7 +166,7 @@ $soal = $soalModel->findAll();
         </div>
         <div class="form-group">
           <label>Penjelasan</label>
-          <textarea name="penjelasan" id="edit-penjelasan"></textarea>
+          <textarea name="penjelasan" id="edit-penjelasan" required></textarea>
         </div>
         <div class="form-group">
           <label>Gambar Soal <span class="text-muted" style="font-size:11px;">(kosongkan jika tidak ingin mengubah)</span></label>
@@ -182,8 +193,7 @@ $soal = $soalModel->findAll();
       document.getElementById('edit-jawaban').value = s.jawaban;
       document.getElementById('edit-penjelasan').value = s.penjelasan;
       document.getElementById('edit-gambar-lama').value = s.gambar;
- 
-      // Tampilkan preview gambar saat ini jika ada
+
       const previewWrapper = document.getElementById('edit-preview-wrapper');
       const previewImg     = document.getElementById('edit-gambar-preview');
       if (s.gambar) {
