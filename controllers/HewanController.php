@@ -6,7 +6,6 @@ if (isset($_SESSION['LAST_ACTIVITY'])) {
     if (time() - $_SESSION['LAST_ACTIVITY'] > $timeout) {
         session_unset();
         session_destroy();
-
         header("Location: /zoopedia/views/user/login.php?pesan=timeout");
         exit;
     }
