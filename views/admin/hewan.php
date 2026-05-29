@@ -86,9 +86,9 @@ $kategori = $kategoriModel->findAll();
                   <?php if (!empty($h['gambar'])): ?>
                     <img src="/zoopedia/public/images/hewan/<?= htmlspecialchars($h['gambar']) ?>"
                          alt="<?= htmlspecialchars($h['nama']) ?>"
-                         class="img-hewan-tabel" 
+                         class="img-hewan-tabel">
                   <?php else: ?>
-                    <span class="text-muted text-sm">—</span> 
+                    <span class="text-muted text-sm">—</span>
                   <?php endif; ?>
                 </td>
                 <td class="font-weight-bold"><?= htmlspecialchars($h['nama']) ?></td>
@@ -179,11 +179,11 @@ $kategori = $kategoriModel->findAll();
         </div>
         <div class="form-group">
           <label>Gambar Hewan <span class="text-muted text-xs">(kosongkan jika tidak ingin mengubah)</span></label>
-          <div id="edit-preview-wrapper" class="edit-preview-wrapper"> 
+          <div id="edit-preview-wrapper" class="edit-preview-wrapper">
             <img id="edit-gambar-preview"
                  src=""
                  alt="Gambar saat ini"
-                 class="img-hewan-tabel" 
+                 class="img-hewan-tabel">
           </div>
           <input type="file" name="gambar" accept="image/*" />
         </div>
