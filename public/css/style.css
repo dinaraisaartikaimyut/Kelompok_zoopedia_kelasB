@@ -2188,3 +2188,74 @@ a {
     width: 100%;
   }
 }
+
+
+
+
+.category-card-img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .category-card {
+    display: block;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .kategori-header {
+    margin-bottom: 28px;
+  }
+
+  .kategori-header-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #0ea5e9;
+    margin-bottom: 6px;
+  }
+
+  .kategori-header-desc {
+    font-size: 13px;
+    color: #64748b;
+  }
+
+  .hewan-card-img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .auth-sub {
+    color: inherit;
+    font-size: 14px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .error-msg-show {
+    display: block !important;
+  }
+
+  .success-msg-show {
+    display: block !important;
+  }
+
+  .btn-auth-full {
+    width: 100%;
+    margin-top: 6px;
+  }
+
+  @media (max-width: 768px) {
+    .kategori-header-title {
+      font-size: 18px;
+    }
+
+    .btn-auth-full {
+      padding: 12px 16px;
+      font-size: 14px;
+    }
+  }
