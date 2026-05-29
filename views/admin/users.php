@@ -1,5 +1,18 @@
 <?php
 session_start();
+$timeout = 30; 
+
+if (isset($_SESSION['LAST_ACTIVITY'])) {
+    if (time() - $_SESSION['LAST_ACTIVITY'] > $timeout) {
+        session_unset();
+        session_destroy();
+
+        header("Location: /zoopedia/views/user/login.php?pesan=timeout");
+        exit;
+    }
+}
+
+$_SESSION['LAST_ACTIVITY'] = time();
 require_once __DIR__ . '/../../config/koneksi.php';
 require_once __DIR__ . '/../../models/User.php';
 
@@ -68,7 +81,7 @@ $users = $userModel->findAll();
               <td class="text-muted"><?= date('d M Y', strtotime($u['created_at'])) ?></td>
               <td>
                 <?php if ($u['role'] !== 'admin'): ?>
-                  <form action="/zoopedia/controllers/UserController.php" method="POST" onsubmit="return confirm('Hapus user ini?')">
+                  <form action="/zoopedia/controllers/AuthController.php?action=delete" method="POST">
                     <input type="hidden" name="action" value="delete">
                     <input type="hidden" name="id" value="<?= $u['id'] ?>">
                     <button type="submit" class="btn-sm btn-delete">Hapus</button>
