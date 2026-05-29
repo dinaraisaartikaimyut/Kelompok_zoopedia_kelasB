@@ -1,47 +1,47 @@
 <?php
 session_start();
 $timeout = 30;
- 
+
 if (isset($_SESSION['LAST_ACTIVITY'])) {
     if (time() - $_SESSION['LAST_ACTIVITY'] > $timeout) {
         session_unset();
         session_destroy();
- 
+
         header("Location: /zoopedia/views/user/login.php?pesan=timeout");
         exit;
     }
 }
- 
+
 $_SESSION['LAST_ACTIVITY'] = time();
 require_once __DIR__ . '/../../config/koneksi.php';
 require_once __DIR__ . '/../../models/Hewan.php';
 require_once __DIR__ . '/../../models/Kategori.php';
- 
+
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
     header('Location: /zoopedia/views/user/login.php');
     exit;
 }
- 
-$title = 'Kelola Hewan - Zoopedia';
+
+$title   = 'Kelola Hewan - Zoopedia';
 $success = $_SESSION['success'] ?? '';
 $error   = $_SESSION['error'] ?? '';
 unset($_SESSION['success'], $_SESSION['error']);
- 
+
 $hewanModel    = new Hewan($conn);
 $kategoriModel = new Kategori($conn);
-$hewan    = $hewanModel->findAll();
-$kategori = $kategoriModel->findAll();
+$hewan         = $hewanModel->findAll();
+$kategori      = $kategoriModel->findAll();
 ?>
- 
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <?php include '../partials/head.php'; ?>
 </head>
 <body>
- 
+
   <?php include '../partials/navbar_admin.php'; ?>
- 
+
   <div class="section">
     <div class="admin-header">
       <div>
@@ -52,7 +52,7 @@ $kategori = $kategoriModel->findAll();
         + Tambah Hewan
       </button>
     </div>
- 
+
     <?php if ($success): ?>
       <div class="alert alert-success">
         ✓ <?= htmlspecialchars($success) ?>
@@ -63,7 +63,7 @@ $kategori = $kategoriModel->findAll();
         ✕ <?= htmlspecialchars($error) ?>
       </div>
     <?php endif; ?>
- 
+
     <div class="table-container">
       <table class="admin-table">
         <thead>
@@ -87,9 +87,9 @@ $kategori = $kategoriModel->findAll();
                   <?php if (!empty($h['gambar'])): ?>
                     <img src="/zoopedia/public/images/hewan/<?= htmlspecialchars($h['gambar']) ?>"
                          alt="<?= htmlspecialchars($h['nama']) ?>"
-                         class="img-hewan-tabel" 
+                         class="img-hewan-tabel">
                   <?php else: ?>
-                    <span class="text-muted text-sm">—</span> 
+                    <span class="text-muted text-sm">—</span>
                   <?php endif; ?>
                 </td>
                 <td class="font-weight-bold"><?= htmlspecialchars($h['nama']) ?></td>
@@ -118,8 +118,7 @@ $kategori = $kategoriModel->findAll();
       </table>
     </div>
   </div>
- 
- 
+
   <div class="modal-overlay" id="modalTambah">
     <div class="modal-box">
       <h3>Tambah Hewan</h3>
@@ -153,8 +152,7 @@ $kategori = $kategoriModel->findAll();
       </form>
     </div>
   </div>
- 
- 
+
   <div class="modal-overlay" id="modalEdit">
     <div class="modal-box">
       <h3>Edit Hewan</h3>
@@ -180,11 +178,11 @@ $kategori = $kategoriModel->findAll();
         </div>
         <div class="form-group">
           <label>Gambar Hewan <span class="text-muted text-xs">(kosongkan jika tidak ingin mengubah)</span></label>
-          <div id="edit-preview-wrapper" class="edit-preview-wrapper"> 
+          <div id="edit-preview-wrapper" class="edit-preview-wrapper">
             <img id="edit-gambar-preview"
                  src=""
                  alt="Gambar saat ini"
-                 class="img-hewan-tabel" 
+                 class="img-hewan-tabel">
           </div>
           <input type="file" name="gambar" accept="image/*" />
         </div>
@@ -195,7 +193,7 @@ $kategori = $kategoriModel->findAll();
       </form>
     </div>
   </div>
- 
+
   <script>
     function editHewan(h) {
       document.getElementById('edit-id').value = h.id;
@@ -203,7 +201,7 @@ $kategori = $kategoriModel->findAll();
       document.getElementById('edit-info').value = h.info;
       document.getElementById('edit-gambar-lama').value = h.gambar;
       document.getElementById('edit-kategori-id').value = h.kategori_id;
- 
+
       const previewWrapper = document.getElementById('edit-preview-wrapper');
       const previewImg     = document.getElementById('edit-gambar-preview');
       if (h.gambar) {
@@ -212,16 +210,16 @@ $kategori = $kategoriModel->findAll();
       } else {
         previewWrapper.style.display = 'none';
       }
- 
+
       document.getElementById('modalEdit').classList.add('show');
     }
- 
+
     document.querySelectorAll('.modal-overlay').forEach(overlay => {
       overlay.addEventListener('click', function(e) {
         if (e.target === this) this.classList.remove('show');
       });
     });
   </script>
- 
+
 </body>
 </html>
