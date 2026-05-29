@@ -1,5 +1,18 @@
 <?php
 session_start();
+$timeout = 30; 
+ 
+if (isset($_SESSION['LAST_ACTIVITY'])) {
+    if (time() - $_SESSION['LAST_ACTIVITY'] > $timeout) {
+        session_unset();
+        session_destroy();
+ 
+        header("Location: /zoopedia/views/user/login.php?pesan=timeout");
+        exit;
+    }
+}
+ 
+$_SESSION['LAST_ACTIVITY'] = time();
 require_once __DIR__ . '/../config/koneksi.php';
 require_once __DIR__ . '/../models/Soal.php';
  
@@ -15,7 +28,14 @@ if ($action === 'create') {
     $pertanyaan = trim($_POST['pertanyaan']);
     $jawaban    = $_POST['jawaban'];
     $penjelasan = trim($_POST['penjelasan']);
-    $gambar     = '';
+ 
+    if (empty($pertanyaan) || empty($jawaban) || empty($penjelasan) || empty($_FILES['gambar']['name'])) {
+        $_SESSION['error'] = 'Semua field wajib diisi!';
+        header('Location: /zoopedia/views/admin/soal.php');
+        exit;
+    }
+ 
+    $gambar = '';
  
     if (!empty($_FILES['gambar']['name'])) {
         $gambar = strtolower(str_replace(' ', '-', $_FILES['gambar']['name']));
@@ -31,10 +51,16 @@ if ($action === 'update') {
     $pertanyaan = trim($_POST['pertanyaan']);
     $jawaban    = $_POST['jawaban'];
     $penjelasan = trim($_POST['penjelasan']);
-    $gambar     = $_POST['gambar_lama'];
+ 
+    if (empty($pertanyaan) || empty($jawaban) || empty($penjelasan)) {
+        $_SESSION['error'] = 'Semua field wajib diisi!';
+        header('Location: /zoopedia/views/admin/soal.php');
+        exit;
+    }
+ 
+    $gambar = $_POST['gambar_lama'];
  
     if (!empty($_FILES['gambar']['name'])) {
-        // Hapus file lama jika ada dan nama filenya berbeda
         $gambarBaru = strtolower(str_replace(' ', '-', $_FILES['gambar']['name']));
         if (!empty($_POST['gambar_lama']) && $_POST['gambar_lama'] !== $gambarBaru) {
             $fileLama = __DIR__ . '/../public/images/soal/' . $_POST['gambar_lama'];
@@ -58,4 +84,3 @@ if ($action === 'delete') {
 header('Location: /zoopedia/views/admin/soal.php');
 exit;
 ?>
- 
