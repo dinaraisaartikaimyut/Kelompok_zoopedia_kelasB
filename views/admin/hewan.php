@@ -6,7 +6,6 @@ if (isset($_SESSION['LAST_ACTIVITY'])) {
     if (time() - $_SESSION['LAST_ACTIVITY'] > $timeout) {
         session_unset();
         session_destroy();
-
         header("Location: /zoopedia/views/user/login.php?pesan=timeout");
         exit;
     }
@@ -22,15 +21,15 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
     exit;
 }
 
-$title   = 'Kelola Hewan - Zoopedia';
+$title = 'Kelola Hewan - Zoopedia';
 $success = $_SESSION['success'] ?? '';
 $error   = $_SESSION['error'] ?? '';
 unset($_SESSION['success'], $_SESSION['error']);
 
 $hewanModel    = new Hewan($conn);
 $kategoriModel = new Kategori($conn);
-$hewan         = $hewanModel->findAll();
-$kategori      = $kategoriModel->findAll();
+$hewan    = $hewanModel->findAll();
+$kategori = $kategoriModel->findAll();
 ?>
 
 <!DOCTYPE html>
@@ -87,9 +86,9 @@ $kategori      = $kategoriModel->findAll();
                   <?php if (!empty($h['gambar'])): ?>
                     <img src="/zoopedia/public/images/hewan/<?= htmlspecialchars($h['gambar']) ?>"
                          alt="<?= htmlspecialchars($h['nama']) ?>"
-                         class="img-hewan-tabel">
+                         class="img-hewan-tabel" 
                   <?php else: ?>
-                    <span class="text-muted text-sm">—</span>
+                    <span class="text-muted text-sm">—</span> 
                   <?php endif; ?>
                 </td>
                 <td class="font-weight-bold"><?= htmlspecialchars($h['nama']) ?></td>
@@ -118,6 +117,7 @@ $kategori      = $kategoriModel->findAll();
       </table>
     </div>
   </div>
+
 
   <div class="modal-overlay" id="modalTambah">
     <div class="modal-box">
@@ -153,6 +153,7 @@ $kategori      = $kategoriModel->findAll();
     </div>
   </div>
 
+
   <div class="modal-overlay" id="modalEdit">
     <div class="modal-box">
       <h3>Edit Hewan</h3>
@@ -178,11 +179,11 @@ $kategori      = $kategoriModel->findAll();
         </div>
         <div class="form-group">
           <label>Gambar Hewan <span class="text-muted text-xs">(kosongkan jika tidak ingin mengubah)</span></label>
-          <div id="edit-preview-wrapper" class="edit-preview-wrapper">
+          <div id="edit-preview-wrapper" class="edit-preview-wrapper"> 
             <img id="edit-gambar-preview"
                  src=""
                  alt="Gambar saat ini"
-                 class="img-hewan-tabel">
+                 class="img-hewan-tabel" 
           </div>
           <input type="file" name="gambar" accept="image/*" />
         </div>
