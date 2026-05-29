@@ -1,5 +1,20 @@
 <?php
 session_start();
+$timeout = 30;
+
+if (isset($_SESSION['LAST_ACTIVITY'])) {
+    if (time() - $_SESSION['LAST_ACTIVITY'] > $timeout) {
+        session_unset();
+        session_destroy();
+
+        http_response_code(401);
+        echo json_encode(['success' => false, 'message' => 'timeout']);
+        exit;
+    }
+}
+
+$_SESSION['LAST_ACTIVITY'] = time();
+
 require_once __DIR__ . '/../config/koneksi.php';
 require_once __DIR__ . '/../models/Kuis.php';
 
