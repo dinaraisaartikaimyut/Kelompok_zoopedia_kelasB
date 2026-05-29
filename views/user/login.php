@@ -1,5 +1,18 @@
 <?php
 session_start();
+$timeout = 30; 
+
+if (isset($_SESSION['LAST_ACTIVITY'])) {
+    if (time() - $_SESSION['LAST_ACTIVITY'] > $timeout) {
+        session_unset();
+        session_destroy();
+
+        header("Location: /zoopedia/views/user/login.php?pesan=timeout");
+        exit;
+    }
+}
+
+$_SESSION['LAST_ACTIVITY'] = time();
 $title = 'Login - Zoopedia';
  
 if (isset($_SESSION['user'])) {
