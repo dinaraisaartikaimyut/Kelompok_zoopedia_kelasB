@@ -66,14 +66,3 @@ $kategori = mysqli_fetch_all($query, MYSQLI_ASSOC);
  
 </body>
 </html>
- 
-
-
-
-
-
-
-
-
-
-
