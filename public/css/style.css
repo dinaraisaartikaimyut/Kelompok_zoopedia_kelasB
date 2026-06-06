@@ -2258,4 +2258,65 @@ a {
       padding: 12px 16px;
       font-size: 14px;
     }
+ @media (max-width: 768px) {
+    .kategori-header-title {
+      font-size: 18px;
+    }
+
+    .btn-auth-full {
+      padding: 12px 16px;
+      font-size: 14px;
+    }
   }
+
+  .search-form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 18px 0 22px 0;
+}
+
+.search-input {
+    width: 280px;
+    height: 46px;
+    padding: 0 16px;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #0f172a;
+    font-size: 15px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.search-input::placeholder {
+    color: #64748b;
+}
+
+.search-input:focus {
+    border-color: #0ea5e9;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.18);
+}
+
+.search-form .btn,
+.search-form .btn-primary {
+    height: 46px;
+    padding: 0 22px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+    box-sizing: border-box;
+}
+
+.search-form .btn-primary {
+    background-color: #0ea5e9;
+    color: #ffffff;
+    border: none;
+}
+
+.search-form .btn-primary:hover {
+    background-color: #0284c7;
+}
