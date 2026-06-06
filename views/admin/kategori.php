@@ -30,7 +30,14 @@ $error   = $_SESSION['error'] ?? '';
 unset($_SESSION['success'], $_SESSION['error']);
 
 $kategoriModel = new Kategori($conn);
-$kategori = $kategoriModel->findAll();
+
+$keyword = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+if ($keyword !== '') {
+    $kategori = $kategoriModel->search($keyword);
+} else {
+    $kategori = $kategoriModel->findAll();
+}
 ?>
 
 <!DOCTYPE html>
@@ -67,6 +74,27 @@ $kategori = $kategoriModel->findAll();
       </div>
     <?php endif; ?>
 
+    <form method="GET" action="" class="search-form">
+  <input
+    type="text"
+    name="search"
+    placeholder="Cari kategori..."
+    value="<?= htmlspecialchars($keyword) ?>"
+    class="search-input"
+  >
+
+  <button type="submit" class="btn btn-primary">
+    Cari
+  </button>
+
+  <?php if ($keyword !== ''): ?>
+    <a href="kategori.php" class="btn btn-outline">
+      Reset
+    </a>
+  <?php endif; ?>
+</form>
+
+
     <div class="table-container">
       <table class="admin-table">
         <thead>
@@ -84,7 +112,7 @@ $kategori = $kategoriModel->findAll();
           <?php if (empty($kategori)): ?>
             <tr>
               <td colspan="6" class="table-empty">
-                Belum ada kategori
+                <?= $keyword !== '' ? 'Kategori tidak ditemukan' : 'Belum ada kategori' ?>
               </td>
             </tr>
           <?php else: ?>
