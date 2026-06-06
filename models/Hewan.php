@@ -16,6 +16,18 @@ class Hewan {
         return mysqli_fetch_all($query, MYSQLI_ASSOC);
     }
 
+    public function search($keyword) {
+    $keyword = mysqli_real_escape_string($this->conn, $keyword);
+
+    $query = mysqli_query($this->conn, "SELECT h.*, k.nama AS nama_kategori
+                                        FROM hewan h
+                                        LEFT JOIN kategori k ON h.kategori_id = k.id
+                                        WHERE h.nama LIKE '%$keyword%'
+                                        ORDER BY h.nama ASC");
+
+    return mysqli_fetch_all($query, MYSQLI_ASSOC);
+}
+
     public function findByKategori($kategoriId) {
         $kategoriId = intval($kategoriId);
         $query = mysqli_query($this->conn, "SELECT * FROM hewan WHERE kategori_id = $kategoriId ORDER BY nama ASC");
