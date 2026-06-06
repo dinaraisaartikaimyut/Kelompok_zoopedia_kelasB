@@ -17,6 +17,20 @@ class Kategori {
         return mysqli_fetch_all($query, MYSQLI_ASSOC);
     }
 
+    public function search($keyword) {
+    $keyword = mysqli_real_escape_string($this->conn, $keyword);
+
+    $query = mysqli_query($this->conn, "SELECT k.*, COUNT(h.id) AS jumlah_hewan 
+                                        FROM kategori k 
+                                        LEFT JOIN hewan h ON h.kategori_id = k.id 
+                                        WHERE k.nama LIKE '%$keyword%' 
+                                        OR k.deskripsi LIKE '%$keyword%'
+                                        GROUP BY k.id 
+                                        ORDER BY k.nama ASC");
+
+    return mysqli_fetch_all($query, MYSQLI_ASSOC);
+}
+
     public function findById($id) {
         $id = intval($id);
         $query = mysqli_query($this->conn, "SELECT * FROM kategori WHERE id = $id");
