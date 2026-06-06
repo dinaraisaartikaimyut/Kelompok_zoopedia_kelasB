@@ -26,11 +26,18 @@ $success = $_SESSION['success'] ?? '';
 $error   = $_SESSION['error'] ?? '';
 unset($_SESSION['success'], $_SESSION['error']);
 
-$hewanModel    = new Hewan($conn);
-$kategoriModel = new Kategori($conn);
-$hewan    = $hewanModel->findAll();
-$kategori = $kategoriModel->findAll();
+$hewanModel = new Hewan($conn);
+
+$keyword = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+if ($keyword !== '') {
+    $hewan = $hewanModel->search($keyword);
+} else {
+    $hewan = $hewanModel->findAll();
+}
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="id">
@@ -40,6 +47,29 @@ $kategori = $kategoriModel->findAll();
 <body>
 
   <?php include '../partials/navbar_admin.php'; ?>
+
+  <form method="GET" action="" class="search-form">
+    <input
+        type="text"
+        name="search"
+        placeholder="Cari hewan..."
+        value="<?= htmlspecialchars($keyword) ?>"
+        class="search-input"
+    >
+
+    <button type="submit" class="btn btn-primary">
+        Cari
+    </button>
+
+    <?php if ($keyword !== ''): ?>
+        <a href="hewan.php" class="btn btn-primary">
+            Reset
+        </a>
+    <?php endif; ?>
+</form>
+
+<div class="table-container">
+  <table class="admin-table">
 
   <div class="section">
     <div class="admin-header">
@@ -77,7 +107,7 @@ $kategori = $kategoriModel->findAll();
         </thead>
         <tbody>
           <?php if (empty($hewan)): ?>
-            <tr><td colspan="6" class="table-empty">Belum ada hewan</td></tr>
+            <tr><td colspan="6" class="table-empty"><?= $keyword !== '' ? 'Hewan tidak ditemukan' : 'Belum ada hewan' ?></td></tr>
           <?php else: ?>
             <?php foreach ($hewan as $i => $h): ?>
               <tr>
