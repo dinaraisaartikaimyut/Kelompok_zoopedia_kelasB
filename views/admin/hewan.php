@@ -37,8 +37,6 @@ if ($keyword !== '') {
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -48,30 +46,8 @@ if ($keyword !== '') {
 
   <?php include '../partials/navbar_admin.php'; ?>
 
-  <form method="GET" action="" class="search-form">
-    <input
-        type="text"
-        name="search"
-        placeholder="Cari hewan..."
-        value="<?= htmlspecialchars($keyword) ?>"
-        class="search-input"
-    >
-
-    <button type="submit" class="btn btn-primary">
-        Cari
-    </button>
-
-    <?php if ($keyword !== ''): ?>
-        <a href="hewan.php" class="btn btn-primary">
-            Reset
-        </a>
-    <?php endif; ?>
-</form>
-
-<div class="table-container">
-  <table class="admin-table">
-
   <div class="section">
+
     <div class="admin-header">
       <div>
         <h2 class="admin-title">Kelola Hewan</h2>
@@ -82,15 +58,25 @@ if ($keyword !== '') {
       </button>
     </div>
 
+    <form method="GET" action="" class="search-form">
+      <input
+          type="text"
+          name="search"
+          placeholder="Cari hewan..."
+          value="<?= htmlspecialchars($keyword) ?>"
+          class="search-input"
+      >
+      <button type="submit" class="btn btn-primary">Cari</button>
+      <?php if ($keyword !== ''): ?>
+          <a href="hewan.php" class="btn btn-outline">Reset</a>
+      <?php endif; ?>
+    </form>
+
     <?php if ($success): ?>
-      <div class="alert alert-success">
-        ✓ <?= htmlspecialchars($success) ?>
-      </div>
+      <div class="alert alert-success">✓ <?= htmlspecialchars($success) ?></div>
     <?php endif; ?>
     <?php if ($error): ?>
-      <div class="alert alert-error">
-        ✕ <?= htmlspecialchars($error) ?>
-      </div>
+      <div class="alert alert-error">✕ <?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
 
     <div class="table-container">
@@ -146,8 +132,8 @@ if ($keyword !== '') {
         </tbody>
       </table>
     </div>
-  </div>
 
+  </div>
 
   <div class="modal-overlay" id="modalTambah">
     <div class="modal-box">
@@ -210,10 +196,7 @@ if ($keyword !== '') {
         <div class="form-group">
           <label>Gambar Hewan <span class="text-muted text-xs">(kosongkan jika tidak ingin mengubah)</span></label>
           <div id="edit-preview-wrapper" class="edit-preview-wrapper">
-            <img id="edit-gambar-preview"
-                 src=""
-                 alt="Gambar saat ini"
-                 class="img-hewan-tabel">
+            <img id="edit-gambar-preview" src="" alt="Gambar saat ini" class="img-hewan-tabel">
           </div>
           <input type="file" name="gambar" accept="image/*" />
         </div>
