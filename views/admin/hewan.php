@@ -48,6 +48,7 @@ if ($keyword !== '') {
 
   <div class="section">
 
+    <!-- Header -->
     <div class="admin-header">
       <div>
         <h2 class="admin-title">Kelola Hewan</h2>
@@ -58,6 +59,7 @@ if ($keyword !== '') {
       </button>
     </div>
 
+    <!-- Search Form -->
     <form method="GET" action="" class="search-form">
       <input
           type="text"
@@ -72,6 +74,7 @@ if ($keyword !== '') {
       <?php endif; ?>
     </form>
 
+    <!-- Alert -->
     <?php if ($success): ?>
       <div class="alert alert-success">✓ <?= htmlspecialchars($success) ?></div>
     <?php endif; ?>
@@ -79,6 +82,7 @@ if ($keyword !== '') {
       <div class="alert alert-error">✕ <?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
 
+    <!-- Tabel -->
     <div class="table-container">
       <table class="admin-table">
         <thead>
@@ -133,8 +137,10 @@ if ($keyword !== '') {
       </table>
     </div>
 
-  </div>
+  </div><!-- end .section -->
 
+
+  <!-- Modal Tambah -->
   <div class="modal-overlay" id="modalTambah">
     <div class="modal-box">
       <h3>Tambah Hewan</h3>
@@ -170,6 +176,7 @@ if ($keyword !== '') {
   </div>
 
 
+  <!-- Modal Edit -->
   <div class="modal-overlay" id="modalEdit">
     <div class="modal-box">
       <h3>Edit Hewan</h3>
