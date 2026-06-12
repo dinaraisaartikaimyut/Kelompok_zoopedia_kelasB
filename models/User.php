@@ -13,9 +13,15 @@ class User {
         return mysqli_fetch_all($query, MYSQLI_ASSOC);
     }
 
+    public function findById($id) {
+        $id = intval($id);
+        $query = mysqli_query($this->conn, "SELECT * FROM users WHERE id = $id LIMIT 1");
+        return mysqli_fetch_assoc($query);
+    }
+
     public function findByUsername($username) {
         $username = mysqli_real_escape_string($this->conn, $username);
-        $query = mysqli_query($this->conn, "SELECT * FROM users WHERE username = '$username'");
+        $query = mysqli_query($this->conn, "SELECT * FROM users WHERE username = '$username' LIMIT 1");
         return mysqli_fetch_assoc($query);
     }
 
@@ -23,12 +29,23 @@ class User {
         $nama     = mysqli_real_escape_string($this->conn, $nama);
         $username = mysqli_real_escape_string($this->conn, $username);
         $password = mysqli_real_escape_string($this->conn, $password);
-        return mysqli_query($this->conn, "INSERT INTO users (nama, username, password, role) VALUES ('$nama', '$username', '$password', 'user')");
+
+        return mysqli_query(
+            $this->conn,
+            "INSERT INTO users (nama, username, password, role) 
+             VALUES ('$nama', '$username', '$password', 'user')"
+        );
     }
 
     public function delete($id) {
         $id = intval($id);
-        return mysqli_query($this->conn, "DELETE FROM users WHERE id = $id AND role != 'admin'");
+
+        return mysqli_query(
+            $this->conn,
+            "DELETE FROM users 
+             WHERE id = $id 
+             AND role != 'admin'"
+        );
     }
 }
 ?>
