@@ -1,6 +1,6 @@
 <?php
 session_start();
-$timeout = 30; 
+$timeout = 30;
 
 if (isset($_SESSION['LAST_ACTIVITY'])) {
     if (time() - $_SESSION['LAST_ACTIVITY'] > $timeout) {
@@ -16,13 +16,18 @@ $_SESSION['LAST_ACTIVITY'] = time();
 $title = 'Register - Zoopedia';
 
 if (isset($_SESSION['user'])) {
-    header('Location: /zoopedia/views/user/beranda.php');
+    if ($_SESSION['user']['role'] === 'admin') {
+        header('Location: /zoopedia/views/admin/dashboard.php');
+    } else {
+        header('Location: /zoopedia/views/user/beranda.php');
+    }
     exit;
 }
 
 $error       = $_SESSION['error'] ?? '';
 $error_field = $_SESSION['error_field'] ?? '';
 $success     = $_SESSION['success'] ?? '';
+
 unset($_SESSION['error'], $_SESSION['success'], $_SESSION['error_field']);
 ?>
 <!DOCTYPE html>
@@ -49,7 +54,15 @@ unset($_SESSION['error'], $_SESSION['success'], $_SESSION['error_field']);
 
         <div class="form-group">
           <label>Nama Lengkap</label>
-          <input type="text" name="nama" placeholder="Masukkan nama kamu" />
+          <input 
+            type="text" 
+            name="nama" 
+            placeholder="Masukkan nama kamu"
+            minlength="3"
+            pattern="[A-Za-z\s]+"
+            title="Nama minimal 3 karakter dan tidak boleh mengandung angka"
+            required
+          />
           <?php if ($error_field === 'nama'): ?>
             <p style="color:var(--danger); font-size:12px; margin-top:4px;"><?= htmlspecialchars($error) ?></p>
           <?php endif; ?>
@@ -57,7 +70,15 @@ unset($_SESSION['error'], $_SESSION['success'], $_SESSION['error_field']);
 
         <div class="form-group">
           <label>Username</label>
-          <input type="text" name="username" placeholder="Minimal 3 karakter, huruf & angka" />
+          <input 
+            type="text" 
+            name="username" 
+            placeholder="Minimal 3 karakter, huruf & angka"
+            minlength="3"
+            pattern="[A-Za-z0-9]+"
+            title="Username minimal 3 karakter dan hanya boleh berisi huruf atau angka"
+            required
+          />
           <?php if ($error_field === 'username'): ?>
             <p style="color:var(--danger); font-size:12px; margin-top:4px;"><?= htmlspecialchars($error) ?></p>
           <?php endif; ?>
@@ -65,7 +86,14 @@ unset($_SESSION['error'], $_SESSION['success'], $_SESSION['error_field']);
 
         <div class="form-group">
           <label>Password</label>
-          <input type="password" name="password" placeholder="6 digit angka" />
+          <input 
+            type="password" 
+            name="password" 
+            placeholder="6 digit angka"
+            pattern="[0-9]{6}"
+            title="Password harus tepat 6 digit angka"
+            required
+          />
           <?php if ($error_field === 'password'): ?>
             <p style="color:var(--danger); font-size:12px; margin-top:4px;"><?= htmlspecialchars($error) ?></p>
           <?php endif; ?>
@@ -73,7 +101,14 @@ unset($_SESSION['error'], $_SESSION['success'], $_SESSION['error_field']);
 
         <div class="form-group">
           <label>Konfirmasi Password</label>
-          <input type="password" name="konfirmasi" placeholder="Ulangi password" />
+          <input 
+            type="password" 
+            name="konfirmasi" 
+            placeholder="Ulangi password"
+            pattern="[0-9]{6}"
+            title="Konfirmasi password harus tepat 6 digit angka"
+            required
+          />
           <?php if ($error_field === 'konfirmasi'): ?>
             <p style="color:var(--danger); font-size:12px; margin-top:4px;"><?= htmlspecialchars($error) ?></p>
           <?php endif; ?>
