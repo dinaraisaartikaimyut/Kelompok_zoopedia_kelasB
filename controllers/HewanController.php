@@ -1,6 +1,6 @@
 <?php
 session_start();
-$timeout = 30;
+$timeout = 300;
 
 if (isset($_SESSION['LAST_ACTIVITY'])) {
     if (time() - $_SESSION['LAST_ACTIVITY'] > $timeout) {
